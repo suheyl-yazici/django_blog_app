@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %} {% block content %}
+
+<div class="row">
+  <div class="col-lg-8 blog-post-single">
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-lg-4 col-md-6 col-12 mb-2">
+        <div class="course-item">
+          <div class="image-blog">
+            <img
+              src="{{post.image.url}}"
+              alt="image"
+              class=""
+              width="350px"
+              height="150px"
+            />
+          </div>
+          <div class="course-br">
+            <div class="course-title">
+              <h2><a href="#" title="">{{post.title}}</a></h2>
+            </div>
+            <div class="course-desc">
+              <p>{{post.content | truncatechars:100 }}</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"
+                >Last updated {{post.last_updated}}</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end col -->
+      {% endfor %}
+    </div>
+    <!-- end row -->
+
+    {% endblock content %}
+  </div>
+</div>
