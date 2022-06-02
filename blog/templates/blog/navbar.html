@@ -36,13 +36,13 @@
             {% else %}
 
             <li class="nav-item active">
-                {% comment %} {% url 'user_login' %} {% endcomment %}
-                <a class="nav-link" href="">Login</a>
+                
+                <a class="nav-link" href="{% url 'user_login' %}">Login</a>
             </li>
             
             <li class="nav-item active">
-                {% comment %} {% url 'register' %} {% endcomment %}
-                <a class="nav-link" href="">Register</a>
+                
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
             </li>
             {% endif %}
         </ul>
