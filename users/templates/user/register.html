@@ -16,7 +16,6 @@
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %} 
     {{ form_user | crispy }}
-    {{ form_profile | crispy }}
     <button type="submit" class="btn btn-danger">Sign Up</button>
     <hr>
     <span>Already have an account?</span>
