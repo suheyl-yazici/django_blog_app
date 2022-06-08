@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import UserProfileForm,UpdateUserForm,UserForm
-from .models import UserProfile, User
+from .models import Profile, User
 from django.contrib.auth.decorators import login_required
-
 
 
 @login_required
@@ -13,7 +12,7 @@ def user_logout(request):
     messages.success(request, 'You logged out!')
     logout(request)
     return render(request, 'user/logout.html')
-    
+
 def user_login(request):
     form = AuthenticationForm(request, data=request.POST)
     
@@ -44,22 +43,24 @@ def register(request):
 
 @login_required
 def profile(request):
+    user = User.objects.get(username=request.user)
+    profile = Profile.objects.get(user=user)
+
     if request.method == 'POST':
-        user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST,request.FILES ,instance=request.user.profile)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
+        if profile_form.is_valid():
+        
             profile_form.save()
             messages.success(request, 'Profile updated successfully')
             return redirect('home')
     else:
-        user_form = UpdateUserForm(instance=request.user)
-        profile_form = UserProfileForm(instance=request.user.profile)
+    
+        profile_form = UserProfileForm(instance=profile)
 
     context = {
         'profile_form': profile_form,
-        "user_form": user_form,
+
     }
 
     return render(request, 'user/profile.html', context)

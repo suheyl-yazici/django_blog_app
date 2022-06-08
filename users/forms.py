@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserProfile ,User
+from .models import Profile ,User
 
 class UserForm(UserCreationForm):
     class Meta:
@@ -13,7 +13,7 @@ class UserProfileForm(forms.ModelForm):
     bio = forms.CharField(widget=forms.Textarea(
         attrs={'class': 'form-control', 'rows': 5}))
     class Meta:
-        model = UserProfile
+        model = Profile
         fields = ('image', 'bio',)
 
 
